@@ -1,0 +1,98 @@
+@charset "UTF-8";
+html, body {
+  font-family: "Noto Sans", "Noto Sans T Chinese", "微軟正黑體", sans-serif;
+  color: #333;
+  font-size: 20px;
+  background-color: #efefef;
+}
+
+html, body, div, nav, section, article, header, footer, h1, h2, h3, h4, p {
+  margin: 0;
+  padding: 0;
+  line-height: 1em;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+p {
+  line-height: 1.5em;
+}
+
+a, a:link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.hidden {
+  display: none;
+}
+
+.no.margin {
+  margin: 0;
+}
+
+.float.right {
+  float: right;
+}
+
+.align.center {
+  text-align: center;
+}
+
+.clear.both {
+  clear: both;
+}
+
+.ui.menu {
+  margin-top: 0;
+  margin-bottom: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.ui.menu > .item:first-child {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+.ui.grid {
+  margin: 0;
+}
+
+.wrapper {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#topbar {
+  background-color: #fff;
+}
+
+#submenu .menu, #thirdmenu .menu {
+  display: none;
+}
+
+#thirdmenu .menu {
+  margin: 0.5rem 1rem;
+}
+
+#list .tag {
+  display: inline;
+  float: right;
+}
+#list .header {
+  display: inline;
+}
+
+#bottombar {
+  background-color: #ccc;
+}
+#bottombar .ui.menu {
+  background-color: #ccc;
+}

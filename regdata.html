@@ -1,0 +1,366 @@
+<div class="ui negative message error">
+    <i class="close icon"></i>
+    <div class="header">
+        錯誤:
+    </div>
+    <p id="error-msg"></p>
+</div>
+<form class="ui form">
+
+    <h3 class="ui dividing header">個人資料</h3>
+    <p>做為你在「COSCUP 工作事項追蹤系統」（Redmine）的帳號，若你已經有帳號，也請填上</p>
+    <div class="required four wide field"> 
+        <label for="redmine">Redmine 帳號</label>
+        <input type="text" id="redmine" name="redmine">
+    </div>
+
+    <h4 class="ui dividing header">組別</h4>
+    <p>我們會再跟您的組長確認，如果您同時參加兩組請勾兩個</p>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="organizer" id="organizer">
+            <label for="organizer">總召</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-admin" id="team-admin">
+            <label for="team-admin">行政組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-committee" id="team-committee">
+            <label for="team-committee">議程委員會</label>
+        </div>
+    </div>
+    <div class="field">
+    <div class="ui checkbox">
+        <input name="team" type="checkbox" value="team-field" id="team-field">
+            <label for="team-field">場務組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-sales" id="team-sales">
+            <label for="team-sales">銷售組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-cpr" id="team-cpr">
+            <label for="team-cpr">線路組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-marketing" id="team-marketing">
+            <label for="team-marketing">行銷組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-accountant" id="team-accountant">
+            <label for="team-accountant">會計組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="cashier" id="cashier">
+            <label for="cashier">出納</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-archiving" id="team-archiving">
+            <label for="team-archiving">紀錄組</label>
+        </div>
+    </div>
+
+    <h4 class="ui dividing header">基本資料</h4>
+    <p>「名牌暱稱」將會列印於名牌上，請勿過長或包含特殊字元。視製作之限制可能被微幅修改</p>
+    <div class="three fields">
+        <div class="required field">
+            <label for="last_name">姓</label>
+            <input type="text" name="last_name" id="last_name">
+        </div>
+        <div class="required field">
+            <label for="first_name">名</label>
+            <input type="text" name="first_name" id="first_name">
+        </div>
+        <div class="required field">
+            <label for="nickname">名牌暱稱</label>
+            <input type="text" name="nickname" id="nickname" placeholder="你希望別人怎麼稱呼你?">
+        </div>
+    </div>
+
+    <h4 class="ui header">性別</h4>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="gender" id="female" type="radio" value="female">
+                <label for="female">女</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="gender" id="male" type="radio" value="male">
+                <label for="male">男</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="gender" id="gender-other" type="radio" value="other">
+                <label for="gender-other">其他</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="two fields">
+        <div class="required field">
+            <label for="email">Email</label>
+            <p>會經常收信的信箱，使用 Gmail 帳號較佳</p>
+            <input name="email" id="email" type="text">
+        </div>
+        <div class="required field">
+            <label for="phone">手機號碼</label>
+            <p>須包含連字號 (-)。正確範例：0987-654-321</p>
+            <input name="phone" id="phone" type="text">
+        </div>
+    </div>
+
+    <h4 class="ui dividing header"></h4>
+
+    <h4 class="ui header">衣服尺寸</h4>
+    <p>T-shirt 用，此為預先調查，正式調查會在 T-shirt 資訊出爐後讓大家修改</p>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="xs" type="radio" value="xs">
+                <label for="xs">XS</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="s" type="radio" value="s">
+                <label for="s">S</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="m" type="radio" value="m">
+                <label for="m">M</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="l" type="radio" value="l">
+                <label for="l">L</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="xl" type="radio" value="xl">
+                <label for="xl">XL</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="2xl" type="radio" value="2xl">
+                <label for="2xl">2XL</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="3xl" type="radio" value="3xl">
+                <label for="3xl">3XL</label>
+            </div>
+        </div>
+        <div class="inline fields">
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input name="t-shirt" id="t-shirt-other" type="radio" value="t-shirt-other">
+                    <label for="t-shirt-other">Other:</label>
+                </div>
+            </div>
+            <div class="field">
+                <input name="t-shirt-other" id="t-shirt-other-msg" type="text">
+            </div>
+        </div>
+    </div>
+
+    <h4 class="ui header">飲食注意事項</h4>
+    <p>如果你因信仰、過敏等因素在飲食上有所禁忌，請選擇。沒有選擇以葷食計。</p>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="food" id="vegetarian" type="checkbox" value="vegetarian">
+                <label for="vegetarian">素食</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="food" id="meat-no-beef" type="checkbox" value="meat-no-beef">
+                <label for="meat-no-beef">葷食但不能吃牛</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="food" id="meat-no-pork" type="checkbox" value="meat-no-pork">
+                <label for="meat-no-pork">葷食但不能吃豬</label>
+            </div>
+        </div>
+        <div class="inline fields">
+            <div class="field">
+                <div class="ui checkbox">
+                    <input name="food" id="food-other" type="checkbox" value="food-other">
+                    <label for="food-other">Other:</label>
+                </div>
+            </div>
+            <div class="field">
+                <input name="food-other" id="food-other-msg" type="text">
+            </div>
+        </div>
+    </div>
+
+    <h4 class="ui header">需要感謝狀？</h4>
+    <p>如因紀念或任何甄選等理由希望大會發送志工感謝狀，請勾選。將印刷本名（請記得在前面的姓名填上本名）</p>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="certificate" id="certificate" type="checkbox" value="true">
+            <label for="certificate">請發給我感謝狀</label>
+        </div>
+    </div>
+
+    <h4 class="ui header">住宿與交通需求</h4>
+    <p>活動當日若有以下需求請勾選，我們將會討論後決定執行方式</p>
+    <div class="two fields">
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="traffic" id="traffic" type="checkbox" value="true">
+                <label for="traffic">我需要交通補助</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="accommodation" id="accommodation" type="checkbox" value="true">
+                <label for="accommodation">我需要住宿</label>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="ui header">出發地</h4>
+    <div class="required four wide field">
+        <label for="origin">活動前你從哪個地區前往中研院？</label>
+        <input name="origin" id="origin" type="text">
+    </div>
+    
+    <h4 class="ui header">出生日期</h4>
+    <p>以身分證上登記的為基準，請選擇一個符合您的描述</p>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="birthday" id="born_before" type="radio" value="0">
+                <label for="born_before">我在 1995 年 8 月 15 日以前（含）出生</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="birthday" id="born_after" type="radio" value="1">
+                <label for="born_after">我在 1995 年 8 月 16 日以後（含）出生</label>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="ui header">你是新血？</h4>
+    <p>若過去沒參加過 COSCUP 工作人員，請勾選</p>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="new" id="new" type="checkbox" value="true">
+            <label for="new">我沒參加過 COSCUP 工作人員</label>
+        </div>
+    </div>
+
+    <h4 class="ui header">語言專長</h4>
+    <p>若您具備下列語言之基本溝通能力，請勾選</p>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="language" id="english" type="checkbox" value="english">
+                <label for="english">英語</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="language" id="japanese" type="checkbox" value="japanese">
+                <label for="japanese">日語</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="language" id="taiwanese" type="checkbox" value="taiwanese">
+                <label for="taiwanese">台語</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="language" id="cantonese" type="checkbox" value="cantonese">
+                <label for="cantonese">粵語</label>
+            </div>
+        </div>
+        <div class="inline fields">
+            <div class="field">
+                <div class="ui checkbox">
+                    <input name="language" id="language-other" type="checkbox" value="language-other">
+                    <label for="language-other">其他</label>
+                </div>
+            </div>
+            <div class="field">
+                <input name="language-other" id="language-other-msg" type="text">
+            </div>
+        </div>
+    </div>
+
+    <h4 class="ui header">其他專長</h4>
+    <p>請選取您所擁有的其他專長</p>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="skill" id="medical" type="checkbox" value="medical">
+                <label for="medical">醫療</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="skill" id="law" type="checkbox" value="law">
+                <label for="law">法律</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="skill" id="pr" type="checkbox" value="pr">
+                <label for="pr">媒體公關</label>
+            </div>
+        </div>
+        <div class="inline fields">
+            <div class="field">
+                <div class="ui checkbox">
+                    <input name="skill" id="skill-other" type="checkbox" value="skill-other">
+                    <label for="skill-other">Other:</label>
+                </div>
+            </div>
+            <div class="field">
+                <input name="skill-other" id="skill-other-msg" type="text">
+            </div>
+        </div>
+    </div>
+
+    <h4 class="ui header">備註</h4>
+    <p>歡迎反應其他意見</p>
+    <div class="field">
+        <textarea name="others" id="others"></textarea>
+    </div>
+
+    <div class="ui submit button" id="regdata-submit">送出</div>
+    <h4 class="ui dividing header"></h4>
+</form>

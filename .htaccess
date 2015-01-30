@@ -1,0 +1,5 @@
+# 93502207: use SSL connection
+RewriteEngine On
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/$1 [L,R]
+Options -Indexes
