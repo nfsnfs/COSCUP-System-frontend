@@ -5,6 +5,9 @@ $(function() {
     $('body').on('click', '#login-submit', login_handler);
     $('body').on('click', '#apply-submit', apply_handler);
     $('body').on('click', '#regdata-submit', regdata_handler);
+    $('body').on('click', '#invite-add', invite_add_handler);
+    $('body').on('click', '#invite-del', invite_del_handler);
+    $('body').on('click', '#invite-submit', invite_handler);
 
     // click listener on <a>
     $('body').on('click', 'a', function() {
@@ -12,9 +15,11 @@ $(function() {
         if(href.lastIndexOf('#', 0) == 0) {
             if(href === '#logout') {
                 window.sessionStorage.removeItem('token');
+                window.sessionStorage.removeItem('data');
+                window.sessionStorage.removeItem('role');
                 show_loggedout();
             }
-            console.log(href.replace('#',''));
+            //console.log(href.replace('#',''));
             load_page(href.replace('#', ''));
         }
     });
@@ -37,6 +42,12 @@ var load_page = function(page) {
         200: function(data) {
             section.empty();
             section.html(data);
+            
+            if(page == 'apply') {
+                apply_init();
+            } else if(page == 'invite') {
+                invite_init();
+            }
         },
         404: function() {
             section.html('404 not found - ' + page);
@@ -47,19 +58,31 @@ var load_page = function(page) {
 var show_errormsg = function(message) {
     var errormsg = $('#error-msg');
     errormsg.html(message);
-    $('.error').show();
+    $('.negative.message').show();
 };
 
 var show_loggedin = function() {
     $('body #nav-login').hide();
     $('body #nav-reg').show();
     $('body #nav-logout').show();
+
+    var role = JSON.parse(window.sessionStorage.getItem('role'));
+    console.log(role)
+    if($.inArray('admin', role) != -1) {
+        $('body #nav-invite').show();
+    }
+
+    var data = window.sessionStorage.getItem('data');
+    if(data == "true") {
+        $('body #nav-reg').hide();
+    }
 };
 
 var show_loggedout = function() {
     $('body #nav-logout').hide();
     $('body #nav-reg').hide();
     $('body #nav-login').show();
+    $('body #nav-invite').hide();
 };
 
 var hash_handler = function() {
@@ -73,6 +96,19 @@ var hash_handler = function() {
     }
 };
 
+var getUrlParameter = function(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) {
+            return sParameterName[1];
+        }
+    }
+}          
+
+
+// for login
 var login_handler = function(event) {
     event.preventDefault();
     var data = { 'user': $('#login-user').val(), 'passwd': $('#login-passwd').val() };
@@ -86,9 +122,16 @@ var login_handler = function(event) {
                 if(!resp['exception']) {
                     var storage = window.sessionStorage;
                     storage.setItem('token', resp['token']);
-                    window.history.replaceState({}, '', '#test');
+                    storage.setItem('data', resp['data']);
+                    storage.setItem('role', JSON.stringify(resp['role']));
                     show_loggedin();
-                    load_page('test');
+                    if(resp['data'] == false) {
+                        window.history.replaceState({}, '', '#regdata');
+                        load_page('regdata');        
+                    } else {
+                        window.history.replaceState({}, '', '#test');
+                        load_page('test');
+                    }
                 } else {
                     show_errormsg(resp['exception']);
                 }
@@ -96,18 +139,23 @@ var login_handler = function(event) {
     });
 };
 
+// for apply
 var apply_handler = function(event) {
     event.preventDefault();
-    $('.error').hide();
+    $('.negative.message').hide();
 
     if($('#apply-passwd').val() !== $('#confirm-passwd').val()) {
-        $('#error-msg').html('wrong password');
-        $('.error').show();
+        show_errormsg('wrong password');
         return;
     }
-    var data = { 'user': $('#apply-user').val(), 'passwd': $('#apply-passwd').val() };
+    var data = { 'user': $('#apply-user').val(), 
+                 'passwd': $('#apply-passwd').val(), 
+                 'role': $('#apply-team').val(),
+                 'email': $('#apply-email').val() };
 
-    $.ajax({url: baseUrl + '/apply',
+    apply_token = getUrlParameter('apply');   
+
+    $.ajax({url: baseUrl + '/apply/' + getUrlParameter('apply'),
             type: 'post',
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -122,14 +170,31 @@ var apply_handler = function(event) {
     });
 };
 
+var apply_init = function() {
+    apply_token = getUrlParameter('apply');   
+    //console.log(apply_token);
+    
+    $.ajax({url: baseUrl + '/apply/' + apply_token,
+            type: 'get',
+            dataType: 'json',
+            success: function(resp) {
+                if(!resp['exception']) {
+                    $('#apply-email').val(resp['email']);
+                    $('#apply-team').val(resp['team']);
+                }
+            }
+    });
+};
+
+// for regdata
 var regdata_handler = function(event) {
     event.preventDefault();
-    $('.error').hide();
+    $('.negative.message').hide();
 
     var data = { 'food': 'meat',
                  'traffic': false,
                  'certificate': false,
-                 'accommodataion': false,
+                 'accommodation': false,
                  'new': false,
                  'language': [],
                  'team': [],
@@ -192,8 +257,7 @@ var regdata_handler = function(event) {
         }
     }
 
-    //console.log(JSON.stringify(data));
-    console.log(window.sessionStorage.getItem('token'));
+    //console.log(window.sessionStorage.getItem('token'));
     var authorization = window.sessionStorage.getItem('token');
     $.ajax({url: baseUrl + '/user',
             headers: { 'Token': authorization },
@@ -204,10 +268,60 @@ var regdata_handler = function(event) {
             success: function(resp) {
                 if(!resp['exception']) {
                     alert('您的資料已經被儲存!');
+                    window.sessionStorage.setItem('data', true);
+                    $('#nav-reg').hide();
                     load_page('useful');
                 } else {
                     show_errormsg(resp['exception']);
                 }
             },
     });
+};
+
+// for invite
+var invite_add_handler = function() {
+    $('#invite-info').clone(false).removeAttr('id').appendTo('#invite-fields');
+};
+
+var invite_del_handler = function() {
+    var count = $('.two.fields').length;
+    if(count > 1)
+        $('#invite-fields .two.fields:last').remove();
+};
+
+var invite_handler = function(e) {
+    e.preventDefault();
+    var authorization = window.sessionStorage.getItem('token');
+    var data = [];
+    var team = [];
+
+    $('input[name=team]:checked').each(function() {
+        team.push($(this).val());
+    });
+
+    $('.two.fields').each(function() {
+        var nickname = $(this).find('input[name=nickname]').val();
+        var email = $(this).find('input[name=email]').val();
+        data.push({'nickname': nickname, 'email': email, 'team': team });
+    });
+
+    //console.log(JSON.stringify(data));
+
+    $.ajax({url: baseUrl + '/invite',
+            type: 'post',
+            headers: { 'Token': authorization },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success: function(resp) {
+                if(!resp['exception']) {
+                    //console.log(JSON.stringify(resp['email']));
+                    $('form').trigger('reset');
+                    alert('ok');
+                }
+            }
+    });
+};
+
+var invite_init = function() {
 };

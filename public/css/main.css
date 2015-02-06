@@ -11,14 +11,13 @@ html, body {
   display: none; }
 .nav #nav-reg {
   display: none; }
+.nav #nav-invite {
+  display: none; }
 
 .section {
   padding-top: 1.2em;
   padding-left: 1em;
   padding-right: 1em;
   padding-bottom: 1em; }
-
-.error {
-  display: none; }
 
 /*# sourceMappingURL=main.css.map */

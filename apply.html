@@ -1,14 +1,19 @@
 <div class="ui three column grid">
     <div class="column"></div>
     <div class="column">
-        <div class="ui negative message error">
-            <i class="close icon"></i>
+        <div class="ui negative message hidden">
             <div class="header">
                 錯誤:
             </div>
             <p id="error-msg"></p>
         </div>
-        <p>申請帳號</p>
+        <div class="ui yellow message">
+            <div class="header">
+                提醒:
+            </div>
+            <p>申請完帳號請登入填工作人員基本資料!</p>
+        </div>
+        <h4 class="ui header">申請帳號</h4>
         <form class="ui form" id="apply-form">
             <div class="field">
                 <label>使用者帳號</label>
@@ -21,6 +26,13 @@
             <div class="field">
                 <label>確認密碼</label>
                 <input name="passwd2" type="password" id="confirm-passwd">
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input name="email" type="text" id="apply-email" disabled>
+            </div>
+            <div class="field">
+                <input name="team" type="hidden" id="apply-team" disabled>
             </div>
             <div class="field">
                 <div class="ui submit button" id="apply-submit">送出</div>

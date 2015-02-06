@@ -1,0 +1,100 @@
+<div class="ui negative message hidden">
+    <div class="header">
+        錯誤:
+    </div>
+    <p id="error-msg"></p>
+</div>
+<div class="ui positive message hidden">
+    <div class="header">
+        訊息:
+    </div>
+    <p id="success-msg"></p>
+</div>
+<form class="ui form">
+
+    <h3 class="ui dividing header">邀請加入</h3>
+    <div id="invite-fields">
+        <div class="two fields" id="invite-info">
+            <div class="required field">
+                <label for="nickname">Nickname</label>
+                <input type="text" id="nickname" name="nickname">
+            </div>
+            <div class="required field"> 
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email">
+            </div>
+        </div>
+    </div>
+
+    <div class="ui icon button" id="invite-add">
+        <i class="add square icon"></i>
+    </div>
+    <div class="ui icon button" id="invite-del">
+        <i class="minus square icon"></i>
+    </div>
+
+    <h4 class="ui dividing header">組別</h4>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="organizer" id="organizer">
+            <label for="organizer">總召</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-admin" id="team-admin">
+            <label for="team-admin">行政組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-committee" id="team-committee">
+            <label for="team-committee">議程委員會</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-field" id="team-field">
+            <label for="team-field">場務組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-sales" id="team-sales">
+            <label for="team-sales">銷售組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-cpr" id="team-cpr">
+            <label for="team-cpr">線路組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-marketing" id="team-marketing">
+            <label for="team-marketing">行銷組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-accountant" id="team-accountant">
+            <label for="team-accountant">會計組</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="cashier" id="cashier">
+            <label for="cashier">出納</label>
+        </div>
+    </div>
+    <div class="field">
+        <div class="ui checkbox">
+            <input name="team" type="checkbox" value="team-archiving" id="team-archiving">
+            <label for="team-archiving">紀錄組</label>
+        </div>
+    </div>
+
+    <div class="ui submit button" id="invite-submit">送出</div>
+    <h4 class="ui dividing header"></h4>
+</form>
