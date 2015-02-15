@@ -195,6 +195,7 @@ var regdata_handler = function(event) {
                  'traffic': false,
                  'certificate': false,
                  'accommodation': false,
+                 'commuting': false,
                  'new': false,
                  'language': [],
                  'team': [],
