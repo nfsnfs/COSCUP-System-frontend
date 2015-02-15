@@ -250,6 +250,8 @@ var regdata_handler = function(event) {
                 if(tmp['value'] !== '')
                     data['t-shirt'] = tmp['value'];
                 break;
+            case 'commuting-time':
+                data['commuting'] = true;
             default:
                 data[tmp['name']] = tmp['value'];
                 break;
@@ -267,7 +269,7 @@ var regdata_handler = function(event) {
             data: JSON.stringify(data),
             success: function(resp) {
                 if(!resp['exception']) {
-                    alert('您的資料已經被儲存!');
+                    alert('Save!');
                     window.sessionStorage.setItem('data', true);
                     $('#nav-reg').hide();
                     load_page('useful');
