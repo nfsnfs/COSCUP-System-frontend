@@ -9,6 +9,16 @@ $(function() {
     $('body').on('click', '#invite-del', invite_del_handler);
     $('body').on('click', '#invite-submit', invite_handler);
 
+    // show id-number field if needed
+    $('body').on('click', '#accommodation', function() {
+        var id_number_field = $('#id-number-field');
+        if(this.checked)
+            id_number_field.show();
+        else
+            id_number_field.hide();
+        console.log(this.checked);
+    });
+
     // click listener on <a>
     $('body').on('click', 'a', function() {
         var href = $(this).attr('href')
@@ -253,6 +263,11 @@ var regdata_handler = function(event) {
                 break;
             case 'commuting-time':
                 data['commuting'] = true;
+                break;
+            case 'id-number':
+                if(tmp['value'] !== '')
+                    data['id-number'] = tmp['value'];
+                break;
             default:
                 data[tmp['name']] = tmp['value'];
                 break;
