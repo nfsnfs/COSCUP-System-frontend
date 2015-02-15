@@ -244,7 +244,7 @@ var regdata_handler = function(event) {
                 break;
             case 'food-other':
                 if(tmp['value'] !== '')
-                    data['food'].push(tmp['value']);
+                    data['food'] = tmp['value'];
                 break;
             case 'skill':
                 if(tmp['value'] !== 'skill-other')
