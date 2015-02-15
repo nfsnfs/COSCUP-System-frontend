@@ -320,7 +320,8 @@ var invite_handler = function(e) {
     $('.two.fields').each(function() {
         var nickname = $(this).find('input[name=nickname]').val();
         var email = $(this).find('input[name=email]').val();
-        data.push({'nickname': nickname, 'email': email, 'team': team });
+        if(nickname !== '' && email !== '')
+            data.push({'nickname': nickname, 'email': email, 'team': team });
     });
 
     //console.log(JSON.stringify(data));
@@ -336,6 +337,8 @@ var invite_handler = function(e) {
                     //console.log(JSON.stringify(resp['email']));
                     $('form').trigger('reset');
                     alert('ok');
+                } else {
+                    alert(resp['exception'])
                 }
             }
     });
