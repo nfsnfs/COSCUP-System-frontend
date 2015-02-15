@@ -1,4 +1,4 @@
-var baseUrl = '//coscup.nfsnfs.net/coscup';
+var baseUrl = '//staff.coscup.org/coscup';
 
 $(function() {
     // click listener on buttons
