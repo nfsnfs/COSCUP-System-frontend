@@ -355,6 +355,7 @@ var invite_init = function() {
 
 // for personal
 var personal_init = function() {
+    var authorization = window.sessionStorage.getItem('token');
     $.ajax({url: baseUrl + '/invite',
             type: 'get',
             headers: { 'Token': authorization },
