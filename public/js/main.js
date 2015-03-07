@@ -53,10 +53,16 @@ var load_page = function(page) {
             section.empty();
             section.html(data);
             
-            if(page == 'apply') {
-                apply_init();
-            } else if(page == 'invite') {
-                invite_init();
+            switch(page) {
+                case 'apply':
+                    apply_init();
+                    break;
+                case 'invite':
+                    invite_init();
+                    break;
+                case 'personal':
+                    personal_init();
+                    break;
             }
         },
         404: function() {
@@ -345,4 +351,25 @@ var invite_handler = function(e) {
 };
 
 var invite_init = function() {
+};
+
+// for personal
+var personal_init = function() {
+    $.ajax({url: baseUrl + '/invite',
+            type: 'get',
+            headers: { 'Token': authorization },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function(resp) {
+                if(!resp['exception']) {
+                    alert(JSON.stringify(resp));
+                } else {
+                    alert(resp['exception']);
+                }
+            }
+    });
+};
+
+var personal_hander = function() {
+    
 };
