@@ -1,4 +1,5 @@
-var baseUrl = '//staff.coscup.org/coscup';
+//var baseUrl = '//staff.coscup.org/coscup';
+var baseUrl = '//coscup.nfsnfs.net/coscup';
 
 $(function() {
     // click listener on buttons
@@ -356,14 +357,19 @@ var invite_init = function() {
 // for personal
 var personal_init = function() {
     var authorization = window.sessionStorage.getItem('token');
-    $.ajax({url: baseUrl + '/invite',
+    $.ajax({url: baseUrl + '/user',
             type: 'get',
             headers: { 'Token': authorization },
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function(resp) {
                 if(!resp['exception']) {
-                    alert(JSON.stringify(resp));
+                    //alert(JSON.stringify(resp));
+                    for(var key in resp) {
+                        //console.log(key + ':' + resp[key]);
+                        $('#'+key).html(resp[key].toString());
+                    }
+                    $('#name').html(resp['last_name'] + resp['first_name']);
                 } else {
                     alert(resp['exception']);
                 }
