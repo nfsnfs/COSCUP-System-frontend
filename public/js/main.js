@@ -9,6 +9,7 @@ $(function() {
     $('body').on('click', '#invite-add', invite_add_handler);
     $('body').on('click', '#invite-del', invite_del_handler);
     $('body').on('click', '#invite-submit', invite_handler);
+    $('body').on('click', '#personal-submit', personal_handler);
 
     // show id-number field if needed
     $('body').on('click', '#accommodation', function() {
@@ -82,6 +83,7 @@ var show_loggedin = function() {
     $('body #nav-login').hide();
     $('body #nav-reg').show();
     $('body #nav-logout').show();
+    $('body #nav-personal').show();
 
     var role = JSON.parse(window.sessionStorage.getItem('role'));
     console.log(role)
@@ -100,6 +102,7 @@ var show_loggedout = function() {
     $('body #nav-reg').hide();
     $('body #nav-login').show();
     $('body #nav-invite').hide();
+    $('body #nav-personal').hide();
 };
 
 var hash_handler = function() {
@@ -217,7 +220,7 @@ var regdata_handler = function(event) {
                  'language': [],
                  'team': [],
                  'skill': [],
-                 'others': []
+                 'others': ''
     };
     
     var form_data = $('form').serializeArray();
@@ -265,7 +268,7 @@ var regdata_handler = function(event) {
                 data['birthday'] = (tmp['value'] == "0")? 0: 1;
                 break;
             case 't-shirt-other':
-                if(tmp['value'] !== '')
+                if(tmp['value'] !== '' && form_data['t-shirt'] == 't-shirt-other')
                     data['t-shirt'] = tmp['value'];
                 break;
             case 'commuting-time':
@@ -423,6 +426,102 @@ var personal_init = function() {
     });
 };
 
-var personal_hander = function() {
+var personal_handler = function(event) {
+    event.preventDefault();
+    $('.negative.message').hide();
+
+    var data = { 'food': 'meat',
+                 'traffic': false,
+                 'certificate': false,
+                 'accommodation': false,
+                 'commuting': false,
+                 'language': [],
+                 'team': [],
+                 'skill': [],
+    };
     
+    var form_data = $('form').serializeArray();
+
+    for(var key in form_data) {
+        var tmp = form_data[key];
+
+        switch(tmp['name']) {
+            case 'method':
+                method = tmp['value'];
+                break;
+            case 'team':
+                data['team'].push(tmp['value']);
+                break;
+            case 'certificate':
+                data['certificate'] = true;
+                break;
+            case 'accommodation':
+                data['accommodation'] = true;
+                break;
+            case 'traffic':
+                data['traffic'] = true;
+                break;
+            case 'new':
+                data['new'] = true;
+                break;
+            case 'language':
+                if(tmp['value'] !== 'language-other')
+                    data['language'].push(tmp['value']);
+                break;
+            case 'language-other':
+                if(tmp['value'] !== '')
+                    data['language'].push(tmp['value']);
+                break;
+            case 'food-other':
+                if(tmp['value'] !== '')
+                    data['food'] = tmp['value'];
+                break;
+            case 'skill':
+                if(tmp['value'] !== 'skill-other')
+                    data['skill'].push(tmp['value']);
+                break;
+            case 'skill-other':
+                if(tmp['value'] !== '')
+                    data['skill'].push(tmp['value']);
+                break;
+            case 'birthday':
+                data['birthday'] = (tmp['value'] == "0")? 0: 1;
+                break;
+            case 't-shirt-other':
+                if(tmp['value'] !== '' && form_data['t-shirt'] == 't-shirt-other')
+                    data['t-shirt'] = tmp['value'];
+                break;
+            case 'commuting-time':
+                data['commuting'] = true;
+                break;
+            case 'id-number':
+                if(tmp['value'] !== '')
+                    data['id-number'] = tmp['value'];
+                break;
+            default:
+                data[tmp['name']] = tmp['value'];
+                break;
+
+        }
+    }
+
+    //console.log(window.sessionStorage.getItem('token'));
+    var authorization = window.sessionStorage.getItem('token');
+    $.ajax({url: baseUrl + '/user',
+            headers: { 'Token': authorization },
+            type: 'PUT',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success: function(resp) {
+                if(!resp['exception']) {
+                    alert('Save!');
+                    window.sessionStorage.setItem('data', true);
+                    $('#nav-reg').hide();
+                    load_page('personal');
+                } else {
+                    show_errormsg(resp['exception']);
+                }
+            },
+    });
 };
