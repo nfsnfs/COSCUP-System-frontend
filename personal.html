@@ -1,310 +1,311 @@
-<div class="ui grid">
-    <div class="row">
-        <div class="one wide column"></div>
-        <div class="ten wide column">
-            <h2 class="ui header">
-                <i class="cocktail icon"></i>
-                <div class="content">
-                    Personal Information
-                </div>
-            </h2>
+<div class="ui negative message hidden">
+    <div class="header">
+        錯誤:
+    </div>
+    <p id="error-msg"></p>
+</div>
+<h2 class="ui header">
+    <i class="cocktail icon"></i>
+    <div class="content">
+        個人資料
+    </div>
+</h2>
+<form class="ui form">
+    <div class="three fields">
+        <div class="field">
+            <label for="id">ID</label>
+            <input id="id" type="text" name="id" disabled>
+        </div>
+        <div class="required field">
+            <label for="last_name">姓</label>
+            <input id="last_name" type="text" name="last_name">
+        </div>
+        <div class="required field">
+            <label for="first_name">名</label>
+            <input id="first_name" type="text" name="first_name">
         </div>
     </div>
-    <form class="ui form">
-        <div class="three fields">
-            <div class="field">
-                <label for="id">ID</label>
-                <input id="id" type="text" name="id" disabled>
-            </div>
-            <div class="required field">
-                <label for="last_name">姓</label>
-                <input id="last_name" type="text" name="last_name">
-            </div>
-            <div class="required field">
-                <label for="first_name">名</label>
-                <input id="last_name" type="text" name="last_name">
-            </div>
+    <div class="four fields">
+        <div class="required field">
+            <label for="redmine">Redmine ID</label>
+            <input id="redmine" type="text" name="redmine">
         </div>
-        <div class="two fields">
-            <div class="required field">
-                <label for="redmine">Redmine ID</label>
-                <input id="redmine" type="text" name="redmine">
-            </div>
-            <div class="required field">
-                <label for="nickname">Nickname</label>
-                <input id="nickname" type="text" name="nickname">
-            </div>
+        <div class="required field">
+            <label for="nickname">Nickname</label>
+            <input id="nickname" type="text" name="nickname">
         </div>
-        <div class="ui header">組別</div>
-        <div class="ten fields">
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="organzier" value="organizer" type="checkbox" name="team">
-                    <label for="organizer">總招</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="team-admin" value="team-admin" type="checkbox" name="team">
-                    <label for="team-admin">行政組</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="team-committee" value="team-committee" type="checkbox" name="team">
-                    <label for="team-committee">議程委員會</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="team-field" value="team-field" type="checkbox" name="team">
-                    <label for="team-field">場務組</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="team-sales" value="team-sales" type="checkbox" name="team">
-                    <label for="team-sales">銷售組</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="team-cpr" value="team-cpr" type="checkbox" name="team">
-                    <label for="team-cpr">線路組</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="team-marketing" value="team-marketing" type="checkbox" name="team">
-                    <label for="team-marketing">行銷組</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="team-accountant" value="team-accountant" type="checkbox" name="team">
-                    <label for="team-accountant">會計組</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="cashier" value="cashier" type="checkbox" name="team">
-                    <label for="cashier">出納</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input id="team-archiving" value="team-archiving" type="checkbox" name="team">
-                    <label for="team-archiving">紀錄組</label>
-                </div>
-            </div>
+        <div class="required field">
+            <label for="phone">手機</label>
+            <input id="phone" type="text" name="phone">
         </div>
-        <div class="two fields">
-            <div class="ui header">性別</div>
-            <div class="group fields">
-                <div class="field">
-                    <div class="ui radio checkbox"><input id="female" value="female" type="radio" name="gender"><label for="female">女</label></div>
-                </div>
-                <div class="field">
-                    <div class="ui radio checkbox"><input id="male" value="male" type="radio" name="gender"><label for="male">男</label></div>
-                </div>
-                <div class="field">
-                    <div class="ui radio checkbox"><input id="gender-other" value="other" type="radio" name="gender"><label for="gender-other">其他</label></div>
-                </div>
-            </div>
-            <div class="required field">
-                <label for="phone">手機</label>
-                <input id="phone" type="text" name="phone">
-            </div>
+        <div id="id-number-field" class="field">
+            <label for="id-number">身分證字號</label>
+            <input name="id-number" id="id-number" type="text">
         </div>
-        <div class="ui header">食物</div>
-        <div class="group fields">
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input name="t-shirt" id="xs" type="radio" value="xs">
-                    <label for="xs">XS</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input name="t-shirt" id="s" type="radio" value="s">
-                    <label for="s">S</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input name="t-shirt" id="m" type="radio" value="m">
-                    <label for="m">M</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input name="t-shirt" id="l" type="radio" value="l">
-                    <label for="l">L</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input name="t-shirt" id="xl" type="radio" value="xl">
-                    <label for="xl">XL</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input name="t-shirt" id="2xl" type="radio" value="2xl">
-                    <label for="2xl">2XL</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui radio checkbox">
-                    <input name="t-shirt" id="3xl" type="radio" value="3xl">
-                    <label for="3xl">3XL</label>
-                </div>
-            </div>
-            <div class="inline fields">
-                <div class="field">
-                    <div class="ui radio checkbox">
-                        <input name="t-shirt" id="t-shirt-other" type="radio" value="t-shirt-other">
-                        <label for="t-shirt-other">Other:</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <input name="t-shirt-other" id="t-shirt-other-msg" type="text">
-                </div>
-            </div>
-        </div>
-        <div class="group fields">
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="food" id="vegetarian" type="checkbox" value="vegetarian">
-                    <label for="vegetarian">素食</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="food" id="meat-no-beef" type="checkbox" value="meat-no-beef">
-                    <label for="meat-no-beef">葷食但不能吃牛</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="food" id="meat-no-pork" type="checkbox" value="meat-no-pork">
-                    <label for="meat-no-pork">葷食但不能吃豬</label>
-                </div>
-            </div>
-            <div class="inline fields">
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input name="food" id="food-other" type="checkbox" value="food-other">
-                        <label for="food-other">Other:</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <input name="food-other" id="food-other-msg" type="text">
-                </div>
+    </div>
+    <div class="ui header">組別</div>
+    <div class="ten fields">
+        <div class="field">
+            <div class="ui checkbox">
+                <input id="organzier" value="organizer" type="checkbox" name="team">
+                <label for="organizer">總招</label>
             </div>
         </div>
         <div class="field">
             <div class="ui checkbox">
+                <input id="team-admin" value="team-admin" type="checkbox" name="team">
+                <label for="team-admin">行政組</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input id="team-committee" value="team-committee" type="checkbox" name="team">
+                <label for="team-committee">議程委員會</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input id="team-field" value="team-field" type="checkbox" name="team">
+                <label for="team-field">場務組</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input id="team-sales" value="team-sales" type="checkbox" name="team">
+                <label for="team-sales">銷售組</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input id="team-cpr" value="team-cpr" type="checkbox" name="team">
+                <label for="team-cpr">線路組</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input id="team-marketing" value="team-marketing" type="checkbox" name="team">
+                <label for="team-marketing">行銷組</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input id="team-accountant" value="team-accountant" type="checkbox" name="team">
+                <label for="team-accountant">會計組</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input id="cashier" value="cashier" type="checkbox" name="team">
+                <label for="cashier">出納</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input id="team-archiving" value="team-archiving" type="checkbox" name="team">
+                <label for="team-archiving">紀錄組</label>
+            </div>
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="group fields">
+            <div class="ui header">性別</div>
+            <div class="field">
+                <div class="ui radio checkbox"><input id="female" value="female" type="radio" name="gender"><label for="female">女</label></div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox"><input id="male" value="male" type="radio" name="gender"><label for="male">男</label></div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox"><input id="gender-other" value="other" type="radio" name="gender"><label for="gender-other">其他</label></div>
+            </div>
+        </div>
+    </div>
+    <div class="ui header">T-shirt</div>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="xs" type="radio" value="xs">
+                <label for="xs">XS</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="s" type="radio" value="s">
+                <label for="s">S</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="m" type="radio" value="m">
+                <label for="m">M</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="l" type="radio" value="l">
+                <label for="l">L</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="xl" type="radio" value="xl">
+                <label for="xl">XL</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="2xl" type="radio" value="2xl">
+                <label for="2xl">2XL</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input name="t-shirt" id="3xl" type="radio" value="3xl">
+                <label for="3xl">3XL</label>
+            </div>
+        </div>
+        <div class="inline fields">
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input name="t-shirt" id="t-shirt-other" type="radio" value="t-shirt-other">
+                    <label for="t-shirt-other">Other:</label>
+                </div>
+            </div>
+            <div class="field">
+                <input name="t-shirt-other" id="t-shirt-other-msg" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="ui header">食物</div>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="food" id="vegetarian" type="checkbox" value="vegetarian">
+                <label for="vegetarian">素食</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="food" id="meat-no-beef" type="checkbox" value="meat-no-beef">
+                <label for="meat-no-beef">葷食但不能吃牛</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="food" id="meat-no-pork" type="checkbox" value="meat-no-pork">
+                <label for="meat-no-pork">葷食但不能吃豬</label>
+            </div>
+        </div>
+        <div class="inline fields">
+            <div class="field">
+                <div class="ui checkbox">
+                    <input name="food" id="food-other" type="checkbox" value="food-other">
+                    <label for="food-other">Other:</label>
+                </div>
+            </div>
+            <div class="field">
+                <input name="food-other" id="food-other-msg" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="ui header">其他</div>
+    <div class="five fields">
+        <div class="field">
+            <div class="ui checkbox">
                 <input name="certificate" id="certificate" type="checkbox" value="true">
-                <label for="certificate">請發給我感謝狀</label>
+                <label for="certificate">感謝狀</label>
             </div>
         </div>
-        <div class="four fields">
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="traffic" id="traffic" type="checkbox" value="true">
-                    <label for="traffic">交通補助</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="accommodation" id="accommodation" type="checkbox" value="true">
-                    <label for="accommodation">住宿</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="commuting-time" id="commuting-time" type="checkbox" value="true">
-                    <label for="commuting-time">通勤時間是否大於 1 小時</label>
-                </div>
-            </div>
-            <div id="id-number-field" class="field" style="display: none;">
-                <label for="id-number">身分證字號</label>
-                <input name="id-number" id="id-number" type="text">
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="traffic" id="traffic" type="checkbox" value="true">
+                <label for="traffic">交通補助</label>
             </div>
         </div>
-        <div class="required four wide field">
-            <label for="origin">出發地</label>
-            <input name="origin" id="origin" type="text">
-        </div>
-        <div class="ui header">語言能力</div>
-        <div class="group fields">
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="language" id="english" type="checkbox" value="english">
-                    <label for="english">英語</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="language" id="japanese" type="checkbox" value="japanese">
-                    <label for="japanese">日語</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="language" id="taiwanese" type="checkbox" value="taiwanese">
-                    <label for="taiwanese">台語</label>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui checkbox">
-                    <input name="language" id="cantonese" type="checkbox" value="cantonese">
-                    <label for="cantonese">粵語</label>
-                </div>
-            </div>
-            <div class="inline fields">
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input name="language" id="language-other" type="checkbox" value="language-other">
-                        <label for="language-other">其他</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <input name="language-other" id="language-other-msg" type="text">
-                </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="accommodation" id="accommodation" type="checkbox" value="true">
+                <label for="accommodation">住宿</label>
             </div>
         </div>
-        <div class="ui header">技能</div>
-        <div class="group fields">
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="commuting-time" id="commuting-time" type="checkbox" value="true">
+                <label for="commuting-time">通勤時間 &gt 1 小時?</label>
+            </div>
+        </div>
+    </div>
+    <div class="required four wide field">
+        <label for="origin">出發地</label>
+        <input name="origin" id="origin" type="text">
+    </div>
+    <div class="ui header">語言能力</div>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="language" id="english" type="checkbox" value="english">
+                <label for="english">英語</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="language" id="japanese" type="checkbox" value="japanese">
+                <label for="japanese">日語</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="language" id="taiwanese" type="checkbox" value="taiwanese">
+                <label for="taiwanese">台語</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="language" id="cantonese" type="checkbox" value="cantonese">
+                <label for="cantonese">粵語</label>
+            </div>
+        </div>
+        <div class="inline fields">
             <div class="field">
                 <div class="ui checkbox">
-                    <input name="skill" id="medical" type="checkbox" value="medical">
-                    <label for="medical">醫療</label>
+                    <input name="language" id="language-other" type="checkbox" value="language-other">
+                    <label for="language-other">其他</label>
                 </div>
             </div>
             <div class="field">
+                <input name="language-other" id="language-other-msg" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="ui header">技能</div>
+    <div class="group fields">
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="skill" id="medical" type="checkbox" value="medical">
+                <label for="medical">醫療</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="skill" id="law" type="checkbox" value="law">
+                <label for="law">法律</label>
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui checkbox">
+                <input name="skill" id="pr" type="checkbox" value="pr">
+                <label for="pr">媒體公關</label>
+            </div>
+        </div>
+        <div class="inline fields">
+            <div class="field">
                 <div class="ui checkbox">
-                    <input name="skill" id="law" type="checkbox" value="law">
-                    <label for="law">法律</label>
+                    <input name="skill" id="skill-other" type="checkbox" value="skill-other">
+                    <label for="skill-other">Other:</label>
                 </div>
             </div>
             <div class="field">
-                <div class="ui checkbox">
-                    <input name="skill" id="pr" type="checkbox" value="pr">
-                    <label for="pr">媒體公關</label>
-                </div>
-            </div>
-            <div class="inline fields">
-                <div class="field">
-                    <div class="ui checkbox">
-                        <input name="skill" id="skill-other" type="checkbox" value="skill-other">
-                        <label for="skill-other">Other:</label>
-                    </div>
-                </div>
-                <div class="field">
-                    <input name="skill-other" id="skill-other-msg" type="text">
-                </div>
+                <input name="skill-other" id="skill-other-msg" type="text">
             </div>
         </div>
     </div>

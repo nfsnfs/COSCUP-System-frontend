@@ -363,13 +363,59 @@ var personal_init = function() {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function(resp) {
+                var size = ['xs', 's', 'm', 'l', 'xl', '2xl', '3xl'];
+                var food = ['meat', 'vegetarian', 'meat-no-beef', 'meat-no-pork'];
+                var skill = ['medical', 'law', 'pr'];
+                var language = ['english', 'japanese', 'taiwanese', 'cantonese'];
                 if(!resp['exception']) {
-                    //alert(JSON.stringify(resp));
                     for(var key in resp) {
-                        //console.log(key + ':' + resp[key]);
-                        $('#'+key).html(resp[key].toString());
+                        if(typeof resp[key] == 'string') {
+                            switch(key) {
+                                case 'food':
+                                    if(food.indexOf(resp[key]) == -1) {
+                                        $('#food-other').prop('checked', true);
+                                        $('#food-other-msg').val(resp[key]);
+                                    } else {
+                                        $('#'+resp[key]).prop('checked', true);
+                                    }
+                                    break;
+                                case 't-shirt':
+                                    if(size.indexOf(resp[key]) == -1) {
+                                        $('#t-shirt-other').prop('checked', true);
+                                        $('#t-shirt-other-msg').val(resp[key]);
+                                    } else {
+                                        $('#'+resp[key]).prop('checked', true);
+                                    }
+                                    break;
+                                case 'gender':
+                                    $('#'+resp[key]).prop('checked', true);
+                                    break;
+                                default:
+                                    $('#'+key).val(resp[key].toString());
+                                    break;
+                            }
+                        } else if(typeof resp[key] == 'object') {
+                            for(var i in resp[key]) {
+                                $('#'+resp[key][i]).prop('checked', true);
+                                if(key == 'skill') {
+                                    if(skill.indexOf(resp[key][i]) == -1) {
+                                        $('#skill-other').prop('checked', true);
+                                        $('#skill-other-msg').val(resp[key][i]);
+                                    }
+                                } else if(key == 'lanaguage') {
+                                    if(lanaguage.indexOf(resp[key][i]) == -1) {
+                                        $('#lanaguage-other').prop('checked', true);
+                                        $('#lanaguage-other-msg').val(resp[key][i]);
+                                    }
+                                }
+                            }
+                        } else if(typeof resp[key] == 'boolean') {
+                            $('#'+key).prop('checked', true);
+                            if(key == 'commuting') {
+                                $('#commuting-time').prop('checked', true);
+                            }
+                        }
                     }
-                    $('#name').html(resp['last_name'] + resp['first_name']);
                 } else {
                     alert(resp['exception']);
                 }
