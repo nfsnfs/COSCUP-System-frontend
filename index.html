@@ -1,41 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>COSCUPer</title>
-        <link rel="stylesheet" href="./public/assets/semantic/semantic.min.css" />
-        <link rel="stylesheet" href="./public/css/main.css" />
-    </head>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>COSCUPer</title>
+<link rel="stylesheet" href="./public/assets/semantic/semantic.min.css" />
+<link rel="stylesheet" href="./public/css/main.css" />
+</head>
 
-    <body>
-        <div class="nav">
-            <div class="ui menu">
-                <a class="item" href="#useful">
-                    <i class="home icon"></i> COSCUPer 2015
-                </a>
-                <a class="item" id="nav-reg" href="#regdata">
-                    <i class="user icon"></i> Register Data
-                </a>
-                <a class="item" id="nav-invite" href="#invite">
-                    <i class="protect icon"></i> Invite
-                </a>
-                <a class="item" id="nav-personal" href="#personal">
-                    <i class="user icon"></i> Personal Info
-                </a>
-                <a class="right item" id="nav-login" href="#login">
-                    <i class="sign in icon"></i> Login
-                </a>
-                <a class="right item" id="nav-logout" href="#logout">
-                    <i class="sign out icon"></i> Logout
-                </a>
+<body>
+<div class="nav">
+    <div class="ui menu">
+        <div class="left menu">
+            <a class="item" href="#useful">
+                <i class="home icon"></i> COSCUPer 2015
+            </a>
+            <a class="item" id="nav-reg" href="#regdata">
+                <i class="user icon"></i> Register Data
+            </a>
+            <a class="item" id="nav-invite" href="#invite">
+                <i class="protect icon"></i> Invite
+            </a>
+            <a class="item" id="nav-personal" href="#personal">
+                <i class="user icon"></i> Personal
+            </a>
+            <div class="ui dropdown item" id="nav-group">
+                <i class="search icon"></i>
+                Group <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="?group=organizer#group">總召</a>
+                    <a class="item" href="?group=team-admin#group">行政組</a>
+                    <a class="item" href="?group=team-committee#group">議程委員會</a>
+                    <a class="item" href="?group=team-field#group">場務組</a>
+                    <a class="item" href="?group=team-sales#group">銷售組</a>
+                    <a class="item" href="?group=team-cpr#group">線路組</a>
+                    <a class="item" href="?group=team-marketing#group">行銷組</a>
+                    <a class="item" href="?group=team-accountant#group">會計組</a>
+                    <a class="item" href="?group=cashier#group">出納</a>
+                    <a class="item" href="?group=team-archiving#group">紀錄組</a>
+                </div>
             </div>
         </div>
+        <a class="right item" id="nav-login" href="#login">
+            <i class="sign in icon"></i> Login
+        </a>
+        <a class="right item" id="nav-logout" href="#logout">
+            <i class="sign out icon"></i> Logout
+        </a>
+    </div>
+</div>
 
-        <div class="section">
-        </div>
+<div class="section">
+</div>
 
-        <script src="./public/js/jquery.min.js"></script>
-        <script src="./public/assets/semantic/semantic.min.js"></script>
-        <script src="./public/js/main.js"></script>
-    </body>
+<script src="./public/js/jquery.min.js"></script>
+<script src="./public/assets/semantic/semantic.min.js"></script>
+<script src="./public/js/main.js"></script>
+</body>
 </html>

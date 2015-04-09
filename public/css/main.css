@@ -15,6 +15,10 @@ html, body {
   display: none; }
 .nav #nav-personal {
   display: none; }
+.nav #nav-group {
+  display: none; }
+.fullscreen.modal {
+  background: #ffffff; }
 
 .section {
   padding-top: 1.2em;

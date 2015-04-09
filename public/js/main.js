@@ -22,9 +22,11 @@ $(function() {
     });
 
     // click listener on <a>
-    $('body').on('click', 'a', function() {
+    $('.nav').on('click', 'a', function() {
         var href = $(this).attr('href')
-        if(href.lastIndexOf('#', 0) == 0) {
+        var index = href.indexOf('#', 0);
+        if(index !== -1) {
+            href = href.substring(index);
             if(href === '#logout') {
                 window.sessionStorage.removeItem('token');
                 window.sessionStorage.removeItem('data');
@@ -63,7 +65,12 @@ var load_page = function(page) {
                     invite_init();
                     break;
                 case 'personal':
-                    personal_init();
+                    var user = getUrlParameter('user');
+                    user = (user !== undefined)? user: '';
+                    personal_init(user);
+                    break;
+                case 'group':
+                    group_init();
                     break;
             }
         },
@@ -84,9 +91,12 @@ var show_loggedin = function() {
     $('body #nav-reg').show();
     $('body #nav-logout').show();
     $('body #nav-personal').show();
+    $('body #nav-group').css('display', 'inline-block');
+    // enable dropdown
+    $('body .ui.dropdown.item').dropdown();
 
     var role = JSON.parse(window.sessionStorage.getItem('role'));
-    console.log(role)
+    //console.log(role)
     if($.inArray('admin', role) != -1) {
         $('body #nav-invite').show();
     }
@@ -103,6 +113,7 @@ var show_loggedout = function() {
     $('body #nav-login').show();
     $('body #nav-invite').hide();
     $('body #nav-personal').hide();
+    $('body #nav-group').hide();
 };
 
 var hash_handler = function() {
@@ -358,9 +369,9 @@ var invite_init = function() {
 };
 
 // for personal
-var personal_init = function() {
+var personal_init = function(target_user) {
     var authorization = window.sessionStorage.getItem('token');
-    $.ajax({url: baseUrl + '/user',
+    $.ajax({url: baseUrl + '/user/' + target_user,
             type: 'get',
             headers: { 'Token': authorization },
             contentType: 'application/json; charset=utf-8',
@@ -413,9 +424,9 @@ var personal_init = function() {
                                 }
                             }
                         } else if(typeof resp[key] == 'boolean') {
-                            $('#'+key).prop('checked', true);
+                            $('#'+key).prop('checked', resp[key]);
                             if(key == 'commuting') {
-                                $('#commuting-time').prop('checked', true);
+                                $('#commuting-time').prop('checked', resp[key]);
                             }
                         }
                     }
@@ -430,6 +441,12 @@ var personal_handler = function(event) {
     event.preventDefault();
     $('.negative.message').hide();
 
+    var data_value = $('#personal-submit').attr('data-value');
+    data_value = data_value === undefined? '': data_value;
+
+    var form_data = $('form').serializeArray();
+    console.log(form_data);
+    /*
     var data = { 'food': 'meat',
                  'traffic': false,
                  'certificate': false,
@@ -440,8 +457,110 @@ var personal_handler = function(event) {
                  'skill': [],
     };
     
-    var form_data = $('form').serializeArray();
 
+    for(var key in form_data) {
+        var tmp = form_data[key];
+
+        switch(tmp['name']) {
+            case 'method':
+                method = tmp['value'];
+                break;
+            case 'team':
+                data['team'].push(tmp['value']);
+                break;
+            case 'certificate':
+                data['certificate'] = true;
+                break;
+            case 'accommodation':
+                data['accommodation'] = true;
+                break;
+            case 'traffic':
+                data['traffic'] = true;
+                break;
+            case 'new':
+                data['new'] = true;
+                break;
+            case 'language':
+                if(tmp['value'] !== 'language-other')
+                    data['language'].push(tmp['value']);
+                break;
+            case 'language-other':
+                if(tmp['value'] !== '')
+                    data['language'].push(tmp['value']);
+                break;
+            case 'food-other':
+                if(tmp['value'] !== '')
+                    data['food'] = tmp['value'];
+                break;
+            case 'skill':
+                if(tmp['value'] !== 'skill-other')
+                    data['skill'].push(tmp['value']);
+                break;
+            case 'skill-other':
+                if(tmp['value'] !== '')
+                    data['skill'].push(tmp['value']);
+                break;
+            case 'birthday':
+                data['birthday'] = (tmp['value'] == "0")? 0: 1;
+                break;
+            case 't-shirt-other':
+                if(tmp['value'] !== '' && form_data['t-shirt'] == 't-shirt-other')
+                    data['t-shirt'] = tmp['value'];
+                break;
+            case 'commuting-time':
+                data['commuting'] = true;
+                break;
+            case 'id-number':
+                if(tmp['value'] !== '')
+                    data['id-number'] = tmp['value'];
+                break;
+            default:
+                data[tmp['name']] = tmp['value'];
+                break;
+
+        }
+    }*/
+
+    var data = personal_data_arrange(form_data);
+    //console.log(JSON.stringify(data));
+
+    //console.log(window.sessionStorage.getItem('token'));
+    var authorization = window.sessionStorage.getItem('token');
+    $.ajax({url: baseUrl + '/user/' + data_value,
+            headers: { 'Token': authorization },
+            type: 'PUT',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success: function(resp) {
+                if(!resp['exception']) {
+                    alert('Save!');
+                    window.sessionStorage.setItem('data', true);
+                    $('#nav-reg').hide();
+                    if (data_value === '')  {
+                        load_page('personal');
+                    } else {
+                        //load_page('group');
+                        location.reload();
+                    }
+                } else {
+                    show_errormsg(resp['exception']);
+                }
+            },
+    });
+};
+
+var personal_data_arrange = function(form_data) {
+    var data = { 'food': 'meat',
+                 'traffic': false,
+                 'certificate': false,
+                 'accommodation': false,
+                 'commuting': false,
+                 'language': [],
+                 'team': [],
+                 'skill': [],
+    };
+    
     for(var key in form_data) {
         var tmp = form_data[key];
 
@@ -505,23 +624,86 @@ var personal_handler = function(event) {
         }
     }
 
-    //console.log(window.sessionStorage.getItem('token'));
+    //console.log(JSON.stringify(data));
+    return data;
+};
+
+var group_init = function() {
+    target_group = getUrlParameter('group');
     var authorization = window.sessionStorage.getItem('token');
-    $.ajax({url: baseUrl + '/user',
+
+    $.ajax({url: baseUrl + '/users/' + target_group,
             headers: { 'Token': authorization },
-            type: 'PUT',
-            contentType: 'application/json; charset=utf-8',
+            type: 'GET',
             dataType: 'json',
-            data: JSON.stringify(data),
             success: function(resp) {
                 if(!resp['exception']) {
-                    alert('Save!');
-                    window.sessionStorage.setItem('data', true);
-                    $('#nav-reg').hide();
-                    load_page('personal');
+                    var users = resp['users'];
+                    for (var key in users) {
+                        var id = users[key]['id'];
+                        get_user_json(id, function(data) {
+                            var tbody = $('#member-content');
+                            var content = '<tr>';
+                            content+='<td><div class="ui primary button" data-value="'+data['id']+'"><i class="edit icon"></i></div></td>';
+                            content+='<td>'+data['id']+'</td>';
+                            content+='<td>'+data['email']+'</td>';
+                            content+='<td>'+data['redmine']+'</td>';
+                            content+='<td>'+data['last_name']+'</td>';
+                            content+='<td>'+data['first_name']+'</td>';
+                            content+='<td>'+data['gender']+'</td>';
+                            content+='<td>'+data['phone']+'</td>';
+                            content+='<td>'+data['personal_id']+'</td>';
+                            content+='<td>'+data['team']+'</td>';
+                            content+='<td>'+data['gender']+'</td>';
+                            content+='<td>'+data['food']+'</td>';
+                            content+='<td>'+data['certificate']+'</td>';
+                            content+='<td>'+data['accommodation']+'</td>';
+                            content+='<td>'+data['traffic']+'</td>';
+                            content+='<td>'+data['commuting']+'</td>';
+                            content+='<td>'+data['origin']+'</td>';
+                            content+='<td>'+data['language']+'</td>';
+                            content+='<td>'+data['skill']+'</td>';
+                            content+='</tr>';
+                            tbody.append(content);
+                        });
+                    }
+                    $('#member-content').on('click', '.ui.primary.button', group_item_handler);
                 } else {
                     show_errormsg(resp['exception']);
                 }
-            },
+            }
     });
 };
+
+var get_user_json = function(user_id, callback) {
+    var authorization = window.sessionStorage.getItem('token');
+
+    $.ajax({url: baseUrl + '/user/' + user_id,
+            headers: { 'Token': authorization },
+            type: 'GET',
+            dataType: 'json',
+            success: function(resp) {
+                callback(resp);
+            }
+    });
+
+};
+
+var group_item_handler = function() {
+    var clicked_item = $(this);
+    var data_value = clicked_item.attr('data-value');
+    $('#personal-modal-content').empty();
+    $.ajax({url: 'personal.html', type: 'get', statusCode: {
+        200: function(data) {
+            $('#personal-modal-content').empty();
+            $('#personal-modal-content').html(data);
+            $('#personal-submit').attr('data-value', data_value);
+            personal_init(data_value);
+            $('#personal-modal').modal('show');
+        },
+        400: function() {
+            section.html('404 not found');
+        }
+    }});
+};
+    
