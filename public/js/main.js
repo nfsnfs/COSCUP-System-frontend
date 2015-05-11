@@ -10,6 +10,7 @@ $(function() {
     $('body').on('click', '#invite-del', invite_del_handler);
     $('body').on('click', '#invite-submit', invite_handler);
     $('body').on('click', '#personal-submit', personal_handler);
+    $('body').on('click', '#toggle-group-table', toggle_group_table_handler);
 
     // show id-number field if needed
     $('body').on('click', '#accommodation', function() {
@@ -632,7 +633,8 @@ var group_init = function() {
     target_group = getUrlParameter('group');
     var authorization = window.sessionStorage.getItem('token');
 
-    $.ajax({url: baseUrl + '/users/' + target_group,
+    //$.ajax({url: baseUrl + '/users/' + target_group,
+    $.ajax({url: baseUrl + '/search/?team='+ target_group,
             headers: { 'Token': authorization },
             type: 'GET',
             dataType: 'json',
@@ -640,32 +642,30 @@ var group_init = function() {
                 if(!resp['exception']) {
                     var users = resp['users'];
                     for (var key in users) {
-                        var id = users[key]['id'];
-                        get_user_json(id, function(data) {
-                            var tbody = $('#member-content');
-                            var content = '<tr>';
-                            content+='<td><div class="ui primary button" data-value="'+data['id']+'"><i class="edit icon"></i></div></td>';
-                            content+='<td>'+data['id']+'</td>';
-                            content+='<td>'+data['email']+'</td>';
-                            content+='<td>'+data['redmine']+'</td>';
-                            content+='<td>'+data['last_name']+'</td>';
-                            content+='<td>'+data['first_name']+'</td>';
-                            content+='<td>'+data['gender']+'</td>';
-                            content+='<td>'+data['phone']+'</td>';
-                            content+='<td>'+data['personal_id']+'</td>';
-                            content+='<td>'+data['team']+'</td>';
-                            content+='<td>'+data['gender']+'</td>';
-                            content+='<td>'+data['food']+'</td>';
-                            content+='<td>'+data['certificate']+'</td>';
-                            content+='<td>'+data['accommodation']+'</td>';
-                            content+='<td>'+data['traffic']+'</td>';
-                            content+='<td>'+data['commuting']+'</td>';
-                            content+='<td>'+data['origin']+'</td>';
-                            content+='<td>'+data['language']+'</td>';
-                            content+='<td>'+data['skill']+'</td>';
-                            content+='</tr>';
-                            tbody.append(content);
-                        });
+                        var data = users[key];
+                        var tbody = $('#member-content');
+                        var content = '<tr>';
+                        content+='<td><div class="ui primary button" data-value="'+data['id']+'"><i class="save icon"></i></div></td>';
+                        content+='<td>'+data['id']+'</td>';
+                        content+='<td>'+data['email']+'</td>';
+                        content+='<td>'+data['redmine']+'</td>';
+                        content+='<td>'+data['last_name']+'</td>';
+                        content+='<td>'+data['first_name']+'</td>';
+                        content+='<td>'+data['gender']+'</td>';
+                        content+='<td>'+data['phone']+'</td>';
+                        content+='<td>'+data['personal_id']+'</td>';
+                        content+='<td>'+data['team']+'</td>';
+                        content+='<td>'+data['gender']+'</td>';
+                        content+='<td>'+data['food']+'</td>';
+                        content+='<td>'+data['certificate']+'</td>';
+                        content+='<td>'+data['accommodation']+'</td>';
+                        content+='<td>'+data['traffic']+'</td>';
+                        content+='<td>'+data['commuting']+'</td>';
+                        content+='<td>'+data['origin']+'</td>';
+                        content+='<td>'+data['language']+'</td>';
+                        content+='<td>'+data['skill']+'</td>';
+                        content+='</tr>';
+                        tbody.append(content);
                     }
                     $('#member-content').on('click', '.ui.primary.button', group_item_handler);
                 } else {
@@ -673,20 +673,6 @@ var group_init = function() {
                 }
             }
     });
-};
-
-var get_user_json = function(user_id, callback) {
-    var authorization = window.sessionStorage.getItem('token');
-
-    $.ajax({url: baseUrl + '/user/' + user_id,
-            headers: { 'Token': authorization },
-            type: 'GET',
-            dataType: 'json',
-            success: function(resp) {
-                callback(resp);
-            }
-    });
-
 };
 
 var group_item_handler = function() {
@@ -707,3 +693,7 @@ var group_item_handler = function() {
     }});
 };
     
+var toggle_group_table_handler = function() {
+    $('th:nth-child(n+10)').toggle();
+    $('td:nth-child(n+10)').toggle();
+}
