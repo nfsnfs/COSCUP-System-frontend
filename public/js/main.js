@@ -371,8 +371,12 @@ var invite_init = function() {
 
 // for personal
 var personal_init = function(target_user) {
+    
+    var endpoint = '/user';
+    if (target_user !== '') endpoint = endpoint + '/';
+
     var authorization = window.sessionStorage.getItem('token');
-    $.ajax({url: baseUrl + '/user/' + target_user,
+    $.ajax({url: baseUrl + endpoint + target_user,
             type: 'get',
             headers: { 'Token': authorization },
             contentType: 'application/json; charset=utf-8',
@@ -526,8 +530,11 @@ var personal_handler = function(event) {
     //console.log(JSON.stringify(data));
 
     //console.log(window.sessionStorage.getItem('token'));
+    var endpoint = '/user';
+    if (data_value !== '') endpoint = endpoint + '/'; 
+
     var authorization = window.sessionStorage.getItem('token');
-    $.ajax({url: baseUrl + '/user/' + data_value,
+    $.ajax({url: baseUrl + endpoint + data_value,
             headers: { 'Token': authorization },
             type: 'PUT',
             contentType: 'application/json; charset=utf-8',
@@ -645,7 +652,8 @@ var group_init = function() {
                         var data = users[key];
                         var tbody = $('#member-content');
                         var content = '<tr>';
-                        content+='<td><div class="ui primary button" data-value="'+data['id']+'"><i class="save icon"></i></div></td>';
+                        //content+='<td><div class="ui primary button" data-value="'+data['id']+'"><i class="save icon"></i></div></td>';
+                        content+='<td>&nbsp;</td>';
                         content+='<td>'+data['id']+'</td>';
                         content+='<td>'+data['email']+'</td>';
                         content+='<td>'+data['redmine']+'</td>';
