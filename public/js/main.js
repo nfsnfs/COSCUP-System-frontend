@@ -648,12 +648,15 @@ var group_init = function() {
             success: function(resp) {
                 if(!resp['exception']) {
                     var users = resp['users'];
+                    var count = 0;
                     for (var key in users) {
+                        count++;
                         var data = users[key];
                         var tbody = $('#member-content');
                         var content = '<tr>';
                         //content+='<td><div class="ui primary button" data-value="'+data['id']+'"><i class="save icon"></i></div></td>';
                         content+='<td>&nbsp;</td>';
+                        content+='<td>'+count+'</td>';
                         content+='<td>'+data['id']+'</td>';
                         content+='<td>'+data['email']+'</td>';
                         content+='<td>'+data['redmine']+'</td>';
