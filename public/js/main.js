@@ -1,5 +1,5 @@
-//var baseUrl = '//staff.coscup.org/coscup';
-var baseUrl = '//coscup.nfsnfs.net/coscup';
+var baseUrl = '//staff.coscup.org/coscup';
+//var baseUrl = '//coscup.nfsnfs.net/coscup';
 
 $(function() {
     // click listener on buttons
@@ -11,6 +11,8 @@ $(function() {
     $('body').on('click', '#invite-submit', invite_handler);
     $('body').on('click', '#personal-submit', personal_handler);
     $('body').on('click', '#toggle-group-table', toggle_group_table_handler);
+    $('body').on('click', '#forget-submit', forget_handler);
+    $('body').on('click', '#reset-submit', reset_handler);
 
     // show id-number field if needed
     $('body').on('click', '#accommodation', function() {
@@ -24,7 +26,7 @@ $(function() {
 
     // click listener on <a>
     $('.nav').on('click', 'a', function() {
-        var href = $(this).attr('href')
+        var href = $(this).attr('href');
         var index = href.indexOf('#', 0);
         if(index !== -1) {
             href = href.substring(index);
@@ -34,8 +36,18 @@ $(function() {
                 window.sessionStorage.removeItem('role');
                 show_loggedout();
             }
-            //console.log(href.replace('#',''));
             load_page(href.replace('#', ''));
+        }
+    });
+
+    $('.section').on('click', '#forget-passwd', function() {
+        var href = $(this).attr('href');
+        var index = href.indexOf('#', 0);
+        if(index !== -1) {
+            href = href.substring(index);
+            load_page(href.replace('#', ''));
+        } else {
+            window.open(href.replace('#', ''));
         }
     });
 
@@ -47,7 +59,6 @@ $(function() {
 
     // load page by hash
     hash_handler();
-    
 });
 
 var load_page = function(page) {
@@ -707,4 +718,42 @@ var group_item_handler = function() {
 var toggle_group_table_handler = function() {
     $('th:nth-child(n+10)').toggle();
     $('td:nth-child(n+10)').toggle();
-}
+};
+
+var forget_handler = function() {
+    var data = { 'user': $('#forget-user').val(), 'email': $('#forget-email').val() };
+    var authorization = window.sessionStorage.getItem('token');
+    $.ajax({url: baseUrl + '/resetpasswd',
+            headers: { 'Token': authorization },
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function(resp) {
+                if(!resp['exception']) {
+                    load_page('forget_result');
+                } else {
+                    show_errormsg(resp['exception']);
+                }
+            }
+    });
+};
+
+var reset_handler = function() {
+    var data = { 'user': $('#reset-user').val(), 'passwd': $('#reset-passwd').val() };
+    var token = getUrlParameter('r');
+    $.ajax({url: baseUrl + '/resetpasswd/' + token,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function(resp) {
+                if(!resp['exception']) {
+                    load_page('login');
+                } else {
+                    show_errormsg(resp['exception']);
+                }
+    
+            }
+    });
+};
