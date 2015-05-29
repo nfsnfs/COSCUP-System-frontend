@@ -1,5 +1,5 @@
-var baseUrl = '//staff.coscup.org/coscup';
-//var baseUrl = '//coscup.nfsnfs.net/coscup';
+//var baseUrl = '//staff.coscup.org/coscup';
+var baseUrl = '//coscup.nfsnfs.net/coscup';
 
 $(function() {
     // click listener on buttons
@@ -669,23 +669,22 @@ var group_init = function() {
                         content+='<td>&nbsp;</td>';
                         content+='<td>'+count+'</td>';
                         content+='<td>'+data['id']+'</td>';
-                        content+='<td>'+data['email']+'</td>';
+                        content+='<td>'+undefined_checker(data['email'])+'</td>';
                         content+='<td>'+data['redmine']+'</td>';
-                        content+='<td>'+data['last_name']+'</td>';
-                        content+='<td>'+data['first_name']+'</td>';
-                        content+='<td>'+data['gender']+'</td>';
-                        content+='<td>'+data['phone']+'</td>';
-                        content+='<td>'+data['personal_id']+'</td>';
+                        content+='<td>'+undefined_checker(data['last_name'])+'</td>';
+                        content+='<td>'+undefined_checker(data['first_name'])+'</td>';
+                        content+='<td>'+undefined_checker(data['gender'])+'</td>';
+                        content+='<td>'+undefined_checker(data['phone'])+'</td>';
+                        content+='<td>'+undefined_checker(data['id-number'])+'</td>';
                         content+='<td>'+data['team']+'</td>';
-                        content+='<td>'+data['gender']+'</td>';
-                        content+='<td>'+data['food']+'</td>';
-                        content+='<td>'+data['certificate']+'</td>';
-                        content+='<td>'+data['accommodation']+'</td>';
-                        content+='<td>'+data['traffic']+'</td>';
-                        content+='<td>'+data['commuting']+'</td>';
-                        content+='<td>'+data['origin']+'</td>';
-                        content+='<td>'+data['language']+'</td>';
-                        content+='<td>'+data['skill']+'</td>';
+                        content+='<td>'+undefined_checker(data['food'])+'</td>';
+                        content+='<td>'+undefined_checker(data['certificate'])+'</td>';
+                        content+='<td>'+undefined_checker(data['accommodation'])+'</td>';
+                        content+='<td>'+undefined_checker(data['traffic'])+'</td>';
+                        content+='<td>'+undefined_checker(data['commuting'])+'</td>';
+                        content+='<td>'+undefined_checker(data['origin'])+'</td>';
+                        content+='<td>'+undefined_checker(data['language'])+'</td>';
+                        content+='<td>'+undefined_checker(data['skill'])+'</td>';
                         content+='</tr>';
                         tbody.append(content);
                     }
@@ -756,4 +755,12 @@ var reset_handler = function() {
     
             }
     });
+};
+
+var undefined_checker = function(data) {
+    if((typeof data == 'undefined') ||
+            (data == null))
+        return "隱藏";
+    else
+        return data
 };
