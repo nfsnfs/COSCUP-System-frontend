@@ -799,7 +799,7 @@ var search_handler = function(event) {
                     if(tmp['value'] === "") {
                         data[tmp['name']] = "";
                     } else {
-                        data[tmp['name']] = (tmp['value'] === 'true');
+                        data[tmp['name']] = (tmp['value'].toLowerCase() === 'true');
                     }
                 }
                 break;
