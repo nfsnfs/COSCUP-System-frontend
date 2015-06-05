@@ -25,6 +25,9 @@ html, body {
     #nav-group {
         display: none;
     }
+    #nav-search {
+        display: none;
+    }
 }
 .fullscreen.modal {
     background: #ffffff;
@@ -37,7 +40,7 @@ html, body {
     padding-bottom: 1em;
 }
 
-#member {
+table {
     th:nth-child(n+10) {
         display: none;
     }

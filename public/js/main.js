@@ -1,5 +1,4 @@
-//var baseUrl = '//staff.coscup.org/coscup';
-var baseUrl = '//coscup.nfsnfs.net/coscup';
+var baseUrl = '//staff.coscup.org/coscup';
 
 $(function() {
     // click listener on buttons
@@ -13,6 +12,8 @@ $(function() {
     $('body').on('click', '#toggle-group-table', toggle_group_table_handler);
     $('body').on('click', '#forget-submit', forget_handler);
     $('body').on('click', '#reset-submit', reset_handler);
+    $('body').on('click', '#search-submit', search_handler);
+    $('body').on('click', '#toggle-search-table', toggle_group_table_handler);
 
     // show id-number field if needed
     $('body').on('click', '#accommodation', function() {
@@ -104,6 +105,7 @@ var show_loggedin = function() {
     $('body #nav-logout').show();
     $('body #nav-personal').show();
     $('body #nav-group').css('display', 'inline-block');
+    $('body #nav-search').show();
     // enable dropdown
     $('body .ui.dropdown.item').dropdown();
 
@@ -126,6 +128,7 @@ var show_loggedout = function() {
     $('body #nav-invite').hide();
     $('body #nav-personal').hide();
     $('body #nav-group').hide();
+    $('body #nav-search').hide();
 };
 
 var hash_handler = function() {
@@ -678,6 +681,7 @@ var group_init = function() {
                         content+='<td>'+undefined_checker(data['id-number'])+'</td>';
                         content+='<td>'+data['team']+'</td>';
                         content+='<td>'+undefined_checker(data['food'])+'</td>';
+                        content+='<td>'+undefined_checker(data['t-shirt'])+'</td>';
                         content+='<td>'+undefined_checker(data['certificate'])+'</td>';
                         content+='<td>'+undefined_checker(data['accommodation'])+'</td>';
                         content+='<td>'+undefined_checker(data['traffic'])+'</td>';
@@ -754,6 +758,114 @@ var reset_handler = function() {
                 }
     
             }
+    });
+};
+
+var search_handler = function(event) {
+    event.preventDefault();
+    $('.negative.message').hide();
+    $('#search-content').empty();
+    $('th:nth-child(n+10)').hide();
+    $('td:nth-child(n+10)').hide();
+    var form_data = $('form').serializeArray();
+    var data = {};
+
+    // parsing array
+    for(var key in form_data) {
+        var tmp = form_data[key];
+        switch(tmp['name']) {
+            // string
+            case 'id':
+            case 'email':
+            case 'redmine':
+            case 'gender':
+            case 'food':
+            case 't-shirt':
+                var checkbox_name = 'search-' + tmp['name'] + '-checkbox';
+                var query = "input[name='" + checkbox_name + "']";
+                data[tmp['name']] = ($(query).prop('checked'))? null: tmp['value'];
+                break;
+            // boolean
+            case 'food':
+            case 'certificate':
+            case 'accommodation':
+            case 'traffic':
+            case 'commuting':
+                var checkbox_name = 'search-' + tmp['name'] + '-checkbox';
+                var query = "input[name='" + checkbox_name + "']";
+                if($(query).prop('checked')) {
+                    data[tmp['name']] = null;
+                } else {
+                    if(tmp['value'] === "") {
+                        data[tmp['name']] = "";
+                    } else {
+                        data[tmp['name']] = (tmp['value'] === 'true');
+                    }
+                }
+                break;
+            // list
+            case 'team':
+                var checkbox_name = 'search-' + tmp['name'] + '-checkbox';
+                var query = "input[name='" + checkbox_name + "']";
+                if($(query).prop('checked')) {
+                    data[tmp['name']] = null;
+                } else {
+                    data[tmp['name']] = tmp['value'].replace(/ /g, '').split(',');
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    var search_string = ''
+    for(var key in data) {
+        search_string += key + '=' + data[key] + '&';
+    }
+    // send ajax and generate the result
+    var authorization = window.sessionStorage.getItem('token');
+    $.ajax({url: baseUrl + '/search/?' + search_string, 
+            headers: { 'Token': authorization },
+            type: 'get',
+            dataType: 'json',
+            success: function(resp) {
+                if(!resp['exception']) {
+                    var users = resp['users'];
+                    var count = 0;
+                    for (var key in users) {
+                        count++;
+                        var data = users[key];
+                        var tbody = $('#search-content');
+                        var content = '<tr>';
+                        //content+='<td><div class="ui primary button" data-value="'+data['id']+'"><i class="save icon"></i></div></td>';
+                        content+='<td>&nbsp;</td>';
+                        content+='<td>'+count+'</td>';
+                        content+='<td>'+data['id']+'</td>';
+                        content+='<td>'+undefined_checker(data['email'])+'</td>';
+                        content+='<td>'+data['redmine']+'</td>';
+                        content+='<td>'+undefined_checker(data['last_name'])+'</td>';
+                        content+='<td>'+undefined_checker(data['first_name'])+'</td>';
+                        content+='<td>'+undefined_checker(data['gender'])+'</td>';
+                        content+='<td>'+undefined_checker(data['phone'])+'</td>';
+                        content+='<td>'+undefined_checker(data['id-number'])+'</td>';
+                        content+='<td>'+data['team']+'</td>';
+                        content+='<td>'+undefined_checker(data['food'])+'</td>';
+                        content+='<td>'+undefined_checker(data['t-shirt'])+'</td>';
+                        content+='<td>'+undefined_checker(data['certificate'])+'</td>';
+                        content+='<td>'+undefined_checker(data['accommodation'])+'</td>';
+                        content+='<td>'+undefined_checker(data['traffic'])+'</td>';
+                        content+='<td>'+undefined_checker(data['commuting'])+'</td>';
+                        content+='<td>'+undefined_checker(data['origin'])+'</td>';
+                        content+='<td>'+undefined_checker(data['language'])+'</td>';
+                        content+='<td>'+undefined_checker(data['skill'])+'</td>';
+                        content+='</tr>';
+                        tbody.append(content);
+                    }
+                    $('#search-content').on('click', '.ui.primary.button', group_item_handler);
+                } else {
+                    show_errormsg(resp['exception']);
+                }
+            },
     });
 };
 

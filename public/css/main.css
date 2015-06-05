@@ -17,6 +17,8 @@ html, body {
   display: none; }
 .nav #nav-group {
   display: none; }
+.nav #nav-search {
+  display: none; }
 
 .fullscreen.modal {
   background: #ffffff; }
@@ -27,7 +29,9 @@ html, body {
   padding-right: 1em;
   padding-bottom: 1em; }
 
-#member th:nth-child(n+10) {
+table th:nth-child(n+10) {
   display: none; }
-#member td:nth-child(n+10) {
+table td:nth-child(n+10) {
   display: none; }
+
+/*# sourceMappingURL=main.css.map */
