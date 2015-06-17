@@ -417,14 +417,7 @@ var personal_init = function(target_user) {
                                     }
                                     break;
                                 case 't-shirt':
-                                    /*if(size.indexOf(resp[key]) == -1) {
-                                        $('#t-shirt-other').prop('checked', true);
-                                        $('#t-shirt-other-msg').val(resp[key]);
-                                    } else {
-                                        $('#'+resp[key]).prop('checked', true);
-                                    }*/
                                     $('#t-shirt').dropdown('set selected', resp[key]);
-                                    //$('#t-shirt').val("xl");
                                     break;
                                 case 'gender':
                                     $('#'+resp[key]).prop('checked', true);
