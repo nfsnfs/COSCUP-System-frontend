@@ -1,4 +1,5 @@
 var baseUrl = '//staff.coscup.org/coscup';
+//var baseUrl = '//coscup.nfsnfs.net/coscup';
 
 $(function() {
     // click listener on buttons
@@ -85,6 +86,8 @@ var load_page = function(page) {
                 case 'group':
                     group_init();
                     break;
+                case 'regdata':
+                    $('#t-shirt').dropdown();
             }
         },
         404: function() {
@@ -387,7 +390,8 @@ var invite_init = function() {
 var personal_init = function(target_user) {
     
     var endpoint = '/user';
-    if (target_user !== '') endpoint = endpoint + '/';
+    if (target_user !== '') endprint = endpoint + '/';
+    $('#t-shirt').dropdown();
 
     var authorization = window.sessionStorage.getItem('token');
     $.ajax({url: baseUrl + endpoint + target_user,
@@ -413,12 +417,14 @@ var personal_init = function(target_user) {
                                     }
                                     break;
                                 case 't-shirt':
-                                    if(size.indexOf(resp[key]) == -1) {
+                                    /*if(size.indexOf(resp[key]) == -1) {
                                         $('#t-shirt-other').prop('checked', true);
                                         $('#t-shirt-other-msg').val(resp[key]);
                                     } else {
                                         $('#'+resp[key]).prop('checked', true);
-                                    }
+                                    }*/
+                                    $('#t-shirt').dropdown('set selected', resp[key]);
+                                    //$('#t-shirt').val("xl");
                                     break;
                                 case 'gender':
                                     $('#'+resp[key]).prop('checked', true);
@@ -465,80 +471,6 @@ var personal_handler = function(event) {
 
     var form_data = $('form').serializeArray();
     console.log(form_data);
-    /*
-    var data = { 'food': 'meat',
-                 'traffic': false,
-                 'certificate': false,
-                 'accommodation': false,
-                 'commuting': false,
-                 'language': [],
-                 'team': [],
-                 'skill': [],
-    };
-    
-
-    for(var key in form_data) {
-        var tmp = form_data[key];
-
-        switch(tmp['name']) {
-            case 'method':
-                method = tmp['value'];
-                break;
-            case 'team':
-                data['team'].push(tmp['value']);
-                break;
-            case 'certificate':
-                data['certificate'] = true;
-                break;
-            case 'accommodation':
-                data['accommodation'] = true;
-                break;
-            case 'traffic':
-                data['traffic'] = true;
-                break;
-            case 'new':
-                data['new'] = true;
-                break;
-            case 'language':
-                if(tmp['value'] !== 'language-other')
-                    data['language'].push(tmp['value']);
-                break;
-            case 'language-other':
-                if(tmp['value'] !== '')
-                    data['language'].push(tmp['value']);
-                break;
-            case 'food-other':
-                if(tmp['value'] !== '')
-                    data['food'] = tmp['value'];
-                break;
-            case 'skill':
-                if(tmp['value'] !== 'skill-other')
-                    data['skill'].push(tmp['value']);
-                break;
-            case 'skill-other':
-                if(tmp['value'] !== '')
-                    data['skill'].push(tmp['value']);
-                break;
-            case 'birthday':
-                data['birthday'] = (tmp['value'] == "0")? 0: 1;
-                break;
-            case 't-shirt-other':
-                if(tmp['value'] !== '' && form_data['t-shirt'] == 't-shirt-other')
-                    data['t-shirt'] = tmp['value'];
-                break;
-            case 'commuting-time':
-                data['commuting'] = true;
-                break;
-            case 'id-number':
-                if(tmp['value'] !== '')
-                    data['id-number'] = tmp['value'];
-                break;
-            default:
-                data[tmp['name']] = tmp['value'];
-                break;
-
-        }
-    }*/
 
     var data = personal_data_arrange(form_data);
     //console.log(JSON.stringify(data));
@@ -783,7 +715,7 @@ var search_handler = function(event) {
             case 't-shirt':
                 var checkbox_name = 'search-' + tmp['name'] + '-checkbox';
                 var query = "input[name='" + checkbox_name + "']";
-                data[tmp['name']] = ($(query).prop('checked'))? null: tmp['value'];
+                data[tmp['name']] = ($(query).prop('checked'))? null: tmp['value'].toLowerCase();
                 break;
             // boolean
             case 'food':
