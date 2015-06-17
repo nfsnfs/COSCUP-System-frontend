@@ -470,12 +470,8 @@ var personal_handler = function(event) {
     data_value = data_value === undefined? '': data_value;
 
     var form_data = $('form').serializeArray();
-    console.log(form_data);
-
     var data = personal_data_arrange(form_data);
-    //console.log(JSON.stringify(data));
 
-    //console.log(window.sessionStorage.getItem('token'));
     var endpoint = '/user';
     if (data_value !== '') endpoint = endpoint + '/'; 
 
