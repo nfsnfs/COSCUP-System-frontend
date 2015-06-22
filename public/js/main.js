@@ -16,6 +16,9 @@ $(function() {
     $('body').on('click', '#search-submit', search_handler);
     $('body').on('click', '#toggle-search-table', toggle_group_table_handler);
 
+    // keypress listener
+    $('input').on("keypress", login_handler);
+
     // show id-number field if needed
     $('body').on('click', '#accommodation', function() {
         var id_number_field = $('#id-number-field');
@@ -160,6 +163,9 @@ var getUrlParameter = function(sParam) {
 // for login
 var login_handler = function(event) {
     event.preventDefault();
+    if (event.keyCode !== 13 && event.keyCode !== undefined) {
+      return;
+    }
     var data = { 'user': $('#login-user').val(), 'passwd': $('#login-passwd').val() };
 
     $.ajax({url: baseUrl + '/login', 
