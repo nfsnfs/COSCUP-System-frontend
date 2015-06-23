@@ -483,7 +483,7 @@ var personal_handler = function(event) {
             data: JSON.stringify(data),
             success: function(resp) {
                 if(!resp['exception']) {
-                    alert('Save!');
+                    alert('Saved!');
                     window.sessionStorage.setItem('data', true);
                     $('#nav-reg').hide();
                     if (data_value === '')  {
