@@ -1,6 +1,44 @@
 var baseUrl = '//staff.coscup.org/coscup';
 //var baseUrl = '//coscup.nfsnfs.net/coscup';
 
+var fields_header = [ 
+    'id', 'email', 'redmine', 'last_name', 'first_name', 'nickname', 'gender', 'phone', 
+    'id-number', 'team', 'food', 't-shirt', 'certificate', 'traffic', 'origin',
+    'transport-fee', 'transportation', 'commuting', 'accommodation', 
+    'accommodation-comment', 'language', 'skill', 'new', 'birthday', 'others', 'project' ];
+
+var fields_header_translation = { 
+    'accommodation': '住宿', 
+    'accommodation-comment': '住宿同房意願登記',
+    'birthday': '生日',
+    'certificate': '感謝狀',
+    'comment': '註解',
+    'commuting': '通勤>1小時?',
+    'email': 'Email',
+    'first_name': '名',
+    'last_name': '姓',
+    'food': '食物',
+    'gender': '性別',
+    'id': 'ID',
+    'id-number': '身份證字號',
+    'language': '語言能力',
+    'new': '第一次參加 COSCUP',
+    'nickname': '暱稱',
+    'origin': '出發地',
+    'others': '其他意見',
+    'phone': '手機',
+    'project': '參與專案',
+    'redmine': 'Redmine ID',
+    'role': 'role',
+    'skill': '技能',
+    't-shirt': 'T-shirt 尺寸',
+    'team': '組別',
+    'traffic': '交通補助',
+    'transport-fee': '預估交通費',
+    'transportation': '預計交通方式',
+};
+
+
 $(function() {
     // click listener on buttons
     $('body').on('click', '#login-submit', login_handler);
@@ -15,7 +53,7 @@ $(function() {
     $('body').on('click', '#reset-submit', reset_handler);
     $('body').on('click', '#search-submit', search_handler);
     $('body').on('click', '#toggle-search-table', toggle_group_table_handler);
-
+    $('body').on('click', '#export-button', export_handler);
 
     // show id-number field if needed
     $('body').on('click', '#accommodation', function() {
@@ -764,6 +802,8 @@ var search_handler = function(event) {
             success: function(resp) {
                 if(!resp['exception']) {
                     var users = resp['users'];
+                    // set result to sessionStorage for creating csv file
+                    window.sessionStorage.setItem('search_result', JSON.stringify(resp['users']));
                     var count = 0;
                     for (var key in users) {
                         count++;
@@ -808,4 +848,28 @@ var undefined_checker = function(data) {
         return "隱藏";
     else
         return data
+};
+
+var export_handler = function(data) {
+    var users = JSON.parse(window.sessionStorage.getItem('search_result'));
+    var csvContent = "data:text/csv;charset=utf-8,\ufeff";
+
+    fields_header.forEach(function(field_name, index) {
+        csvContent += fields_header_translation[field_name] + ','
+    });
+    
+    csvContent += '\n';
+
+    users.forEach(function(user, index) {
+        
+        for (var i = 0; i < fields_header.length; i++) {
+            var key = fields_header[i];
+            var value = (user[key] !== undefined)? user[key]: '';
+            csvContent += '"' + value + '",';
+        }
+        csvContent += '\n';
+    });
+    
+    var encodeUri = encodeURI(csvContent);
+    window.open(encodeUri);
 };
