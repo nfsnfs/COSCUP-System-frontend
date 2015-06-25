@@ -16,8 +16,6 @@ $(function() {
     $('body').on('click', '#search-submit', search_handler);
     $('body').on('click', '#toggle-search-table', toggle_group_table_handler);
 
-    // keypress listener
-    $('input').on("keypress", login_handler);
 
     // show id-number field if needed
     $('body').on('click', '#accommodation', function() {
@@ -91,6 +89,11 @@ var load_page = function(page) {
                     break;
                 case 'regdata':
                     $('#t-shirt').dropdown();
+                    break;
+                case 'login':
+                    // keypress listener
+                    $('input').on("keypress", login_handler);
+                    break;
             }
         },
         404: function() {
@@ -160,9 +163,12 @@ var getUrlParameter = function(sParam) {
 }          
 
 
+var test_handler = function(event) {
+}
 // for login
 var login_handler = function(event) {
-    event.preventDefault();
+    //event.preventDefault();
+    console.log("event.keyCode: " + event.keyCode);
     if (event.keyCode !== 13 && event.keyCode !== undefined) {
       return;
     }
