@@ -864,8 +864,8 @@ var export_handler = function(data) {
         
         for (var i = 0; i < fields_header.length; i++) {
             var key = fields_header[i];
-            var value = (user[key] !== undefined)? user[key]: '';
-            csvContent += '"' + value + '",';
+            var value = (user[key] !== undefined)? '' + user[key]: '';
+            csvContent += '"' + escapeRegExp(value.replace('#','')) +  '",';
         }
         csvContent += '\n';
     });
@@ -873,3 +873,7 @@ var export_handler = function(data) {
     var encodeUri = encodeURI(csvContent);
     window.open(encodeUri);
 };
+
+var escapeRegExp = function(str) {
+    return str.replace(/([#",\/\\])/g, "\\$1");
+}
