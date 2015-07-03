@@ -645,6 +645,7 @@ var group_init = function() {
                         content+='<td>'+data['id']+'</td>';
                         content+='<td>'+undefined_checker(data['email'])+'</td>';
                         content+='<td>'+data['redmine']+'</td>';
+                        content+='<td>'+data['nickname']+'</td>';
                         content+='<td>'+undefined_checker(data['last_name'])+'</td>';
                         content+='<td>'+undefined_checker(data['first_name'])+'</td>';
                         content+='<td>'+undefined_checker(data['gender'])+'</td>';
