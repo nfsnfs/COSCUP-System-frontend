@@ -750,6 +750,10 @@ var search_handler = function(event) {
             case 'id':
             case 'email':
             case 'redmine':
+                var checkbox_name = 'search-' + tmp['name'] + '-checkbox';
+                var query = "input[name='" + checkbox_name + "']";
+                data[tmp['name']] = ($(query).prop('checked'))? null: tmp['value'];
+                break;
             case 'gender':
             case 'food':
             case 't-shirt':
